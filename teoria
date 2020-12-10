@@ -1,0 +1,34 @@
+Creamos un componente principal que lo llamamos de la siguiente manera:
+    |__src
+        |__GifExpertApp.jsx
+
+    Este componente nos va a permitir definir a partir de su estado un array con valores que representan categories.
+
+    Por otro lado creamos otro componente que será colocado como hijo directo de GifExpertApp y se llamará AddCategory. Este componente tendrá un input que permitirá agregarle nuevas categorieas al estado del GifExpertApp
+        |__src
+            |__componentes
+                |__AddCategory.jsx
+    
+    Para poder gestionar el estado de este componente, creamos un input y en su evento onChange realizamos una llamada a un metodo, handleInputChange donde nos encargamos de actualizar el useState de inputValue con el valor que tenga la input para cada onChange, donde realizaremos una lectura del input y el valor devuelto lo asignaremos a inputValue de useState de la siguiente manera:
+        --> setInputValue(e.target.value)
+
+    Por otro lado en la llamada al componente AddCategory le pasamos como prop el setCategories para poder hacer cambios desde el componente addCategory de la siguiente manera 
+        --> <AddCategory setCAtegories = { setCategories } />
+
+    Luego recibimos esas props en el componente setCategory realizando una destructuracion de la siguiente manera
+        --> export const AddCategory = ( { setCategorpies } ) =>{
+                    ...
+                }
+
+    Lo proximo será que en el evento onSubmit se dispara la funcion handleSubmit, y dentro de esta funcion agregaremos la actualizacion de la nueva categoria de la siguiente manera:
+        --> setCategories( cats => [ ..cats, inputValue ] )
+
+    En este caso al no contar con las categorias existentes, utilizamos el callback de la funcion setCategories para poder recibirlas, en este caso la nombramos como cats y luego agregamos este argumento al array de categorieas junto con la categoria que contiene el estado inputValue.
+
+    Esta instruccion solo la realizaremos si el largo de cadena del input fuera de los espacios externos es mayor a 2 caracteres. Y una vez hecho cambiaremso el estado del input con setInputValue a '' de la siguiente manera:
+        --> if ( inputValue.trim().length > 2 ) {
+                setCategories( cats => [ ...cats, inputValue ] );
+                setInputValue('');
+            }
+
+    
